@@ -1,0 +1,13 @@
+name: Call Reusable Workflow
+
+on:
+  workflow_dispatch:
+
+jobs:
+  call-reusable-workflow:
+    uses: abc/test/.github/workflows/reusable-workflow.yml@master
+    with:
+      repo_name: "abc/dummy"
+      branch: "dev"
+    secrets:
+      GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
