@@ -1,0 +1,34 @@
+name: Build & Deploy Function Paved Road Infrastructure
+run-name: Build & Deploy Function Paved Road Infrastructure 🚀 ${{ inputs.Environment }}
+
+on:
+  workflow_dispatch:
+    inputs:
+      Environment:
+        type: string
+        default: 'dev'
+        description: 'Environment'
+        required: true
+
+jobs:
+  deploy-infrastructure:
+    name: Deploy Infra - ${{ inputs.Environment }}
+    runs-on: windows-latest
+    environment: ${{ inputs.Environment }}
+
+    env:
+      ENV: "my value"
+      TEST: ${{ inputs.Environment }}
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Run PowerShell script
+        shell: pwsh
+        env:
+          SUPER: ${{ secrets.Test }}
+          MINE: ${{ vars.GIT }}
+          
+        run: |
+          ./test.ps1 -first "test${{ inputs.Environment }}mine" -SubscriptionId ${{ vars.GIT }} -second "this is ${{ env.MINE }} second" -third "this is ${{ secrets.secret }} third"
